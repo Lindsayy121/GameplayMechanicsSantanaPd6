@@ -549,9 +549,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff40839116a7194787f15b953a073c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 2.6
   hasPowerUp: 0
   powerupIndicator: {fileID: 1632016019}
+  currentpowerUp: 0
+  rocketPrefab: {fileID: 0}
 --- !u!54 &1261724386
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -18,11 +18,19 @@ public class PlayerController : MonoBehaviour
     private GameObject tmpRocket;
     private Coroutine powerupCountdown;
 
+    public float hangTime;
+    public float smashSpeed;
+    public float explosionForce;
+    public float explosionRadius;
+
+    bool smashing = false;
+    float floorY;
+
     // Start is called before the first frame update
     void Start()
     {
-      playerRb = GetComponent<Rigidbody>();
-      focalPoint = GameObject.Find("Focal Point");
+        playerRb = GetComponent<Rigidbody>();
+        focalPoint = GameObject.Find("Focal Point");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,7 +43,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(PowerupCountdownRoutine());
             powerupIndicator.gameObject.SetActive(true);
 
-            if(powerupCountdown != null)
+            if (powerupCountdown != null)
             {
                 StopCoroutine(powerupCountdown);
             }
@@ -53,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") && currentpowerUp == PowerUpType.Pushback)
+        if (collision.gameObject.CompareTag("Enemy") && currentPowerUp == PowerUpType.Pushback)
         {
             Rigidbody enemyRigidbody = collision.gameObject.GetComponent<Rigidbody>();
             Vector3 awayFromPlayer = (collision.gameObject.transform.position - transform.position);
@@ -72,6 +80,30 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    IEnumerator Smash()
+    {
+        var enemies = FindObjectsOfType<Enemy>();
+
+        floorY = transform.position.y;
+
+        float jumpTime = Time.time + hangTime;
+
+        while(Time.time < jumpTime)
+        {
+            playerRb.velocity = new Vector2(playerRb.velocity.x, -smashSpeed * 2);
+            yield return null;
+        }
+
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            if (enemies[i] != null)
+                enemies[i].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRadius, 0.0f, ForceMode.Impulse);
+        }
+
+        smashing = false;
+    }
+   
+
     // Update is called once per frame
     void Update()
     {
@@ -83,5 +115,12 @@ public class PlayerController : MonoBehaviour
         {
             LaunchRockets();
         }
+
+        if(currentPowerUp == PowerUpType.Smash && Input.GetKeyDown(KeyCode.Space) && !smashing)
+        {
+            smashing = true;
+            StartCoroutine(Smash());
+        }
     }
+
 }

@@ -282,6 +282,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2806602200333509284, guid: 6b274acb2887e354f8b53d6cabb98a04, type: 3}
   m_PrefabInstance: {fileID: 2003014347}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &541448660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541448655}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b96ec82e4f3a4074ea2c8cbced7df138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpType: 0
 --- !u!1 &1205567981
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,7 +327,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 3533175910084376528, guid: 289affd506d6645428479c54716e9e18, type: 3}
   enemyCount: 0
   waveNumber: 1
-  powerupPrefab: {fileID: 541448655}
+  powerupPrefabs: []
 --- !u!4 &1205567983
 Transform:
   m_ObjectHideFlags: 0
@@ -549,11 +562,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff40839116a7194787f15b953a073c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.6
+  speed: 2.86
   hasPowerUp: 0
   powerupIndicator: {fileID: 1632016019}
   currentpowerUp: 0
   rocketPrefab: {fileID: 0}
+  hangTime: 0
+  smashSpeed: 0
+  explosionForce: 0
+  explosionRadius: 0
 --- !u!54 &1261724386
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -622,7 +639,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b1c21cf211d9def4999edcf5e748f9de, type: 2}
+  - {fileID: 2100000, guid: 4c97b24d72ebade4d98acaf3b75c90ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -967,7 +984,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2806602200333509284, guid: 6b274acb2887e354f8b53d6cabb98a04, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 541448660}
   m_SourcePrefab: {fileID: 100100000, guid: 6b274acb2887e354f8b53d6cabb98a04, type: 3}
 --- !u!1001 &2023108751
 PrefabInstance:
@@ -980,6 +1000,10 @@ PrefabInstance:
     - target: {fileID: 84262441883489177, guid: b4504c7189cfbd449b918ef238a2213d, type: 3}
       propertyPath: m_Name
       value: PowerupRockets
+      objectReference: {fileID: 0}
+    - target: {fileID: 84262441883489177, guid: b4504c7189cfbd449b918ef238a2213d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6695736991139124968, guid: b4504c7189cfbd449b918ef238a2213d, type: 3}
       propertyPath: m_LocalPosition.x
